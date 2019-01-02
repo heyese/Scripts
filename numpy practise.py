@@ -12,7 +12,7 @@ print(ndarr.__repr__())
 print('\n\n#3')
 arr = np.fromiter((True for i in range(9)), bool, count=9).reshape(3, 3)
 # Or, preferably:
-arr = np.full((3,3), True, dtype=bool)
+arr = np.full((3, 3), True, dtype=bool)
 # Or:
 arr = np.ones((3, 3), dtype=bool)
 print(arr.__repr__())
@@ -40,4 +40,30 @@ arr = arr.reshape(2, -1)
 print(arr.__repr__())
 
 print('\n\n#8')
+a = np.arange(10).reshape(2, -1)
+b = np.repeat(1, 10).reshape(2, -1)
+# My first desperate attempt, which uses list comprehensions and unpacking ...
+arr = np.array([i for i in [*a, *b]])
+# But much better to stay with numpy functions:
+arr = np.vstack((a, b))
+# or
+arr = np.concatenate((a, b), axis=0)
+
+print('\n\n#9')
+a = np.arange(10).reshape(2, -1)
+b = np.repeat(1, 10).reshape(2, -1)
+np.concatenate((a, b), axis=1)
+np.hstack((a, b))
+
+print('\n\n#10')
+arr = np.arange(1,4)
+np.hstack((np.repeat(arr, 3), np.concatenate((arr,)*3)))
+# or
+np.hstack((np.repeat(arr, 3), np.tile(arr, 3)))
+
+print('\n\n#11')
+# Common items
+
+
+
 
