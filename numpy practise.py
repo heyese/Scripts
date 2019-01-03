@@ -63,7 +63,31 @@ np.hstack((np.repeat(arr, 3), np.tile(arr, 3)))
 
 print('\n\n#11')
 # Common items
+a = np.array([1,2,3,2,3,4,3,4,5,6])
+b = np.array([7,2,10,2,7,4,9,4,9,8])
+# Dropping back into pure python:
+np.array(list(set(a.tolist()).intersection(set(b.tolist()))))
+# Using the numpy function!
+np.array(list(set(a.tolist()).intersection(set(b.tolist()))))
+# Strangely, dropping to python in this case was much quicker ...
 
+print('\n\n#12')
+a = np.array([1,2,3,4,5])
+b = np.array([5,6,7,8,9])
+# My first attempt!
+a[np.where(np.isin(a,b), np.zeros(b.size), np.ones(b.size)).astype(bool)]
+# Ah - can use 'invert' to flip partity between True / False:
+a[np.invert(np.isin(a,b))]
+# I prefer my solution, actually, but given solution is useful to know.
+# This returns a sorted, unique values from a that are not in b
+np.setdiff1d(a,b)
 
+print('\n\n#13')
+a = np.array([1,2,3,2,3,4,3,4,5,6])
+b = np.array([7,2,10,2,7,4,9,4,9,8])
+# First attempt - used arange to get an array of indexes
+np.arange(a.size)[a==b]
+# But can simply use where ...
+np.where(a==b)
 
 
